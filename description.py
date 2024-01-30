@@ -8,16 +8,15 @@ def readCSV(file_path):
     df = pd.read_csv(file_path)
     return df
 
-def decribeData(df):
-    print("----------------")
-    print("OverView Of Data")
-    print("----------------")
+def decribeData(df): 
+    print(" OVERVIEW OF DATA ")
+    print("--------------------")
     print(df.head())
-    print("Data Types")
-    print("----------------")
+    print(" DATA TYPES ")
+    print("--------------------")
     print(df.dtypes)
-    print("DataFrame Shape")
-    print("----------------")
+    print(" DATAFRAME SHAPE ")
+    print("--------------------")
     print(df.shape)
 
 def summaryOfData(df):
