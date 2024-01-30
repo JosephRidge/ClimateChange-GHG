@@ -9,11 +9,15 @@ def readCSV(file_path):
     return df
 
 def decribeData(df):
+    print("----------------")
     print("OverView Of Data")
+    print("----------------")
     print(df.head())
     print("Data Types")
+    print("----------------")
     print(df.dtypes)
     print("DataFrame Shape")
+    print("----------------")
     print(df.shape)
 
 def summaryOfData(df):
