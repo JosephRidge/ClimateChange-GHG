@@ -1,0 +1,45 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Distribution of Greenhouse Gas Emissions
+sns.histplot(df_greenhouse_gas['Emissions'], bins=20, kde=True)
+plt.title('Distribution of Greenhouse Gas Emissions')
+plt.xlabel('Emissions')
+plt.show()
+
+# Cluster Visualization for Forest Cover
+sns.scatterplot(x='Country', y='ForestArea', hue='Cluster', data=df_forest_cover, palette='viridis')
+plt.title('Clustering based on Forest Cover')
+plt.xlabel('Country')
+plt.ylabel('Forest Area')
+plt.show()
+
+# Principal Component Analysis (PCA) Scatter Plot
+sns.scatterplot(x='PC1', y='PC2', data=df_pca)
+plt.title('PCA Scatter Plot')
+plt.xlabel('Principal Component 1')
+plt.ylabel('Principal Component 2')
+plt.show()
+
+# SVM Decision Boundary Visualization
+sns.scatterplot(x='LandUse', y='Emission', hue='Category', data=df_agriculture, palette='Set1')
+plt.title('SVM Decision Boundary Visualization')
+plt.xlabel('Land Use')
+plt.ylabel('Emission')
+plt.show()
+
+# Time Series Visualization for Temperature
+sns.lineplot(x='Year', y='Temperature', data=df_temperature)
+plt.title('Time Series Visualization for Temperature')
+plt.xlabel('Year')
+plt.ylabel('Temperature')
+plt.show()
+
+# Decision Tree Regression Plot for Temperature
+plt.scatter(X_test_temp['Year'], y_test_temp, color='black', label='Actual')
+plt.scatter(X_test_temp['Year'], predictions_temp, color='blue', label='Predicted')
+plt.title('Decision Tree Regression for Temperature')
+plt.xlabel('Year')
+plt.ylabel('Temperature')
+plt.legend()
+plt.show()

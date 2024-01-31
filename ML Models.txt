@@ -1,0 +1,67 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.cluster import KMeans
+from sklearn.decomposition import PCA
+from sklearn.svm import SVC
+from sklearn.metrics import accuracy_score, mean_squared_error
+from sklearn.preprocessing import StandardScaler
+from sklearn.tree import DecisionTreeRegressor
+
+# Load datasets (replace with your actual datasets name and path)
+df_greenhouse_gas = pd.read_csv('greenhouse_gas_data.csv')
+df_sea_level = pd.read_csv('sea_level_data.csv')
+df_forest_cover = pd.read_csv('forest_cover_data.csv')
+df_temperature = pd.read_csv('temperature_data.csv')
+df_agriculture = pd.read_csv('agriculture_data.csv')
+df_renewable_energy = pd.read_csv('renewable_energy_data.csv')
+
+# Predicting Greenhouse Gas Emissions using Random Forest Regression
+X = df_greenhouse_gas[['Feature1', 'Feature2', 'Feature3']]
+y = df_greenhouse_gas['Emissions']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+model_rf = RandomForestRegressor()
+model_rf.fit(X_train, y_train)
+predictions_rf = model_rf.predict(X_test)
+mse_rf = mean_squared_error(y_test, predictions_rf)
+print(f'Mean Squared Error (Random Forest): {mse_rf}')
+
+# Clustering based on Forest Cover
+X_forest_cover = df_forest_cover[['Country', 'ForestArea']]
+scaler = StandardScaler()
+X_forest_cover_scaled = scaler.fit_transform(X_forest_cover[['ForestArea']])
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+df_forest_cover['Cluster'] = kmeans.fit_predict(X_forest_cover_scaled)
+
+# Principal Component Analysis (PCA)
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+df_pca = pd.DataFrame(X_pca, columns=['PC1', 'PC2'])
+
+# Support Vector Machine (SVM) for Classification
+X_agriculture = df_agriculture[['LandUse', 'Emission']]
+y_agriculture = df_agriculture['Category']
+
+X_train_svm, X_test_svm, y_train_svm, y_test_svm = train_test_split(X_agriculture, y_agriculture, test_size=0.2, random_state=42)
+
+svm_model = SVC()
+svm_model.fit(X_train_svm, y_train_svm)
+predictions_svm = svm_model.predict(X_test_svm)
+accuracy_svm = accuracy_score(y_test_svm, predictions_svm)
+print(f'Accuracy (SVM): {accuracy_svm}')
+
+# Decision Tree Regression for Time Series Analysis
+X_temperature = df_temperature[['Year', 'Temperature']]
+y_temperature = df_temperature['TargetVariable']
+
+X_train_temp, X_test_temp, y_train_temp, y_test_temp = train_test_split(X_temperature, y_temperature, test_size=0.2, random_state=42)
+
+dt_model = DecisionTreeRegressor()
+dt_model.fit(X_train_temp, y_train_temp)
+predictions_temp = dt_model.predict(X_test_temp)
+mse_temp = mean_squared_error(y_test_temp, predictions_temp)
+print(f'Mean Squared Error (Decision Tree): {mse_temp}')
